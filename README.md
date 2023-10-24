@@ -21,6 +21,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isucon@{グローバルip}
 ### Taskfileのインストール
 ```
 sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+curl -O https://raw.githubusercontent.com/Pigmin-isucon/doc/main/Taskfile.yml
 ```
 
 ### setup
