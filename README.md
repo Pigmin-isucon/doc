@@ -37,7 +37,6 @@ task ssh
 出力された公開鍵をコピーしてgithubのリポジトリに置いておく
 ```
 cd {.gitを置くdir}
-git init
 git remote add origin {remote url}
 ```
 サイズの大きいファイルは.gitignoreに設定して、pushする
