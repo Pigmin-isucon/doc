@@ -71,10 +71,12 @@ task slow-on
 ```
 やめるときは`task slow-off`
 
+### その他
 ```
 apt upgrade
 ```
-やっておくといいかも
+やっておくといいかも  
+goのバージョンを最新にする: https://go.dev/doc/install
 
 ## やること
 - slow-queryを見てindexを貼る
@@ -85,5 +87,6 @@ apt upgrade
 - データ数が少ないならオンメモリキャッシュを考える
 - 異常なほど遅いなら別サーバーで処理する
 - 画像はDBに保存しない
+    - nginxのtry_filesを使う
 - initializeでできることを考える
 
