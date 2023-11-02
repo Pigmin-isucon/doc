@@ -105,7 +105,7 @@ tasks:
             sudo rm /var/log/mysql/mysql-slow.log
           fi
 
-  gen-key:
+  keygen:
     desc: github用のssh鍵を生成します
     cmds:
       - cmd: |
