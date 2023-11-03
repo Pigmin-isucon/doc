@@ -8,7 +8,7 @@
 HOST {接続名(isuconなど)}
     HostName {グローバルip}
     User {ユーザー名(たぶんisucon)}
-    IdentifyFile ~/.ssh/id_ed25519.pub
+    IdentityFile ~/.ssh/id_ed25519.pub
 ```
 
 ### 公開鍵を持っていく
