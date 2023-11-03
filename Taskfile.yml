@@ -78,7 +78,7 @@ tasks:
     silent: true
     cmds:
       - cmd: |
-          idx=$(ls {{.ISUCON_DIR/logs/alp}} | grep -oE '[0-9]+' | awk '{print $1}' | sort -n | tail -n 1)
+          idx=$(ls {{.ISUCON_DIR}}/logs/alp | grep -oE '[0-9]+' | awk '{print $1}' | sort -n | tail -n 1)
           if [ -z "$idx" ]; then
             idx=0
           fi
