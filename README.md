@@ -85,6 +85,8 @@ task slow-on
 
 ### その他
 
+- `task restart`でgoのアプリがrestartされるようにする
+
 ```
 apt upgrade
 ```
