@@ -100,6 +100,8 @@ long_queyr_time = 0
 
 go のバージョンが最新じゃないなら最新にする. `go.mod` でエラーが出るかもなので `go mod tidy`を忘れない
 
+- `task restart`でgoのアプリがrestartされるようにする
+
 ```
 task go-update
 ```
