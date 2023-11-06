@@ -23,18 +23,17 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isucon@{グローバルip}
 
 ```
 sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+```
+
+```
 curl -O https://raw.githubusercontent.com/Pigmin-isucon/doc/main/Taskfile.yml
 ```
 
-### setup
-
-Taskfile の中の変数を設定してから実行
-
-```
-task setup
-```
-
 ### git の設定
+
+```
+task git-config
+```
 
 ```
 task keygen
@@ -44,16 +43,27 @@ task keygen
 
 ```
 cd {.gitを置くdir}
+git init
 git remote add origin {remote url}
 ```
 
-サイズの大きいファイルは.gitignore に設定して、push する
+サイズの大きいファイルは .gitignore に設定して push する
+
+### setup
+
+Taskfile の中の変数を設定してから実行. 多分手元に Taskfile を持ってきて手元で設定したほうがいい.  
+ubuntu 環境であることを仮定しているので, alpine とかだったらコマンドも書き直す必要あり
+
+```
+task setup
+```
 
 ### log の準備
 
 nginx で alp を使う準備  
 /etc/nginx/nginx.conf にこれを書く  
-書いたら`systemctl nginx reload`
+書いたら`sudo nginx -t`でエラーが出ないことを確認する  
+ついでに Taskfile の alp を使う部分で`-m`を設定し, url をグループ化する.
 
 ```
     log_format ltsv "time:$time_local"
@@ -75,22 +85,41 @@ nginx で alp を使う準備
     access_log /var/log/nginx/access.log ltsv;
 ```
 
-mysql で pt-query-digest を使う準備
+mysql で pt-query-digest を使う準備  
+/etc/mysql/mysql.conf.d/mysqld.cnf を書き換える(mariadb だと場所が違う)
 
 ```
-task slow-on
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+long_queyr_time = 0
 ```
 
-やめるときは`task slow-off`
+`task slow-on`でも一応できるが, restart するとリセットされる
 
-### その他
+### go のアップデート(動作確認はしてない)
+
+go のバージョンが最新じゃないなら最新にする. `go.mod` でエラーが出るかもなので `go mod tidy`を忘れない
 
 ```
-apt upgrade
+task go-update
 ```
 
-やっておくといいかも  
-go のバージョンを最新にする: https://go.dev/doc/install
+### pprof, fgprof の準備
+
+```go
+import (
+  ..
+  _ "net/http/pprof"
+  ..
+)
+
+func main() {
+	http.DefaultServeMux.Handle("/debug/fgprof", fgprof.Handler())
+	go func() {
+		log.Println(http.ListenAndServe(":6060", nil))
+	}()
+}
+```
 
 ## やること
 

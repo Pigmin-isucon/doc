@@ -24,6 +24,7 @@ tasks:
     cmds:
       - go build -o {{.GO_BINARY_NAME}}
 
+  # goのserviceもここに追加する
   restart:
     desc: nginxとmysqlを再起動します
     cmds:
@@ -100,7 +101,7 @@ tasks:
           fi
           idx=$((idx+1))
           if [ -e /var/log/mysql/mysql-slow.log ]; then
-            sudo pt-query-digest --filter 'length($event->arg) < 3000' /var/log/mysql/mysql-slow.log \
+            sudo pt-query-digest --filter 'length($event->{arg}) < 3000' /var/log/mysql/mysql-slow.log \
               > {{.ISUCON_DIR}}/logs/slow/slow.log.$idx
             sudo rm /var/log/mysql/mysql-slow.log
           fi
@@ -118,25 +119,29 @@ tasks:
         silent: true
     run: once
 
-  setup:
-    desc: setupを行います 実行前にTaskfileの変数を確認してください
-    prompt: Taskfileの変数は正しいですか?
-    deps: [install-pt-query-log, install-alp, git-config]
-    cmds:
-      - mkdir -p {{.ISUCON_DIR}}/logs/alp {{.ISUCON_DIR}}/logs/slow
-    run: when_changed
-
   git-config:
-    internal: true
-    dir: '{{.ISUCON_DIR}}'
+    desc: gitの設定を行います
     cmds:
       - git config --global user.email "lingmukangtai825@gmail.com"
       - git config --global user.name "pirosiki197"
       - git config --global init.defaultBranch main
-      - cmd: |
-          if [ ! -e {{.ISUCON_DIR}}/.git ]; then
-            git init
-          fi
+
+  go-update:
+    desc: goを最新バージョンにします
+    cmds:
+      - command -v go | xargs sudo rm -rf
+      - wget https://golang.org/dl/go1.21.3.linux-amd64.tar.gz
+      - sudo tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
+      - rm go1.21.3.linux-amd64.tar.gz
+
+  setup:
+    desc: setupを行います 実行前にTaskfileの変数を確認してください
+    prompt: Taskfileの変数は正しいですか?
+    deps: [install-pt-query-log, install-alp, install-graphviz]
+    cmds:
+      - sudo apt upgrade
+      - mkdir -p {{.ISUCON_DIR}}/logs/alp {{.ISUCON_DIR}}/logs/slow
+    run: when_changed
 
   install-pt-query-log:
     internal: true
@@ -153,3 +158,9 @@ tasks:
       - tar zxvf alp_linux_amd64.tar.gz
       - sudo install alp /usr/local/bin
       - rm alp alp_linux_amd64.tar.gz
+
+  install-graphviz:
+    internal: true
+    cmds:
+      - sudo apt update
+      - sudo apt install graphviz
