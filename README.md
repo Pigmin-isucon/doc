@@ -58,12 +58,14 @@ ubuntu 環境であることを仮定しているので, alpine とかだった�
 task setup
 ```
 
+- `task restart`で go のサービスが restart されるように & `task log`で go のログが見れるようにしておく
+- alp を使う部分で`-m`を設定し, url をグループ化する.
+
 ### log の準備
 
 nginx で alp を使う準備  
 /etc/nginx/nginx.conf にこれを書く  
-書いたら`sudo nginx -t`でエラーが出ないことを確認する  
-ついでに Taskfile の alp を使う部分で`-m`を設定し, url をグループ化する.
+書いたら`sudo nginx -t`でエラーが出ないことを確認する
 
 ```
     log_format ltsv "time:$time_local"
@@ -99,8 +101,6 @@ long_queyr_time = 0
 ### go のアップデート(動作確認はしてない)
 
 go のバージョンが最新じゃないなら最新にする. `go.mod` でエラーが出るかもなので `go mod tidy`を忘れない
-
-- `task restart`でgoのアプリがrestartされるようにする
 
 ```
 task go-update
