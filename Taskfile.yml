@@ -130,9 +130,9 @@ tasks:
     desc: goを最新バージョンにします
     cmds:
       - command -v go | xargs sudo rm -rf
-      - wget https://golang.org/dl/go1.21.3.linux-amd64.tar.gz
-      - sudo tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
-      - rm go1.21.3.linux-amd64.tar.gz
+      - wget https://golang.org/dl/go1.21.4.linux-amd64.tar.gz
+      - sudo tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
+      - rm go1.21.4.linux-amd64.tar.gz
 
   setup:
     desc: setupを行います 実行前にTaskfileの変数を確認してください
