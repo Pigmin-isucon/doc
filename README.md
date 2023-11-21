@@ -49,7 +49,7 @@ git remote add origin {remote url}
 
 サイズの大きいファイルは .gitignore に設定して push する
 
-### setup
+### setup (ここから先は並行で準備できる)
 
 Taskfile の中の変数を設定してから実行. 多分手元に Taskfile を持ってきて手元で設定したほうがいい.  
 ubuntu 環境であることを仮定しているので, alpine とかだったらコマンドも書き直す必要あり
