@@ -102,11 +102,9 @@ tasks:
             idx=0
           fi
           idx=$((idx+1))
-          if [ -e /var/log/mysql/mysql-slow.log ]; then
-            sudo pt-query-digest --filter 'length($event->{arg}) < 3000' /var/log/mysql/mysql-slow.log \
-              > {{.ISUCON_DIR}}/logs/slow/slow.log.$idx
-            sudo truncate /var/log/mysql/mysql-slow.log --size 0
-          fi
+          sudo pt-query-digest --filter 'length($event->{arg}) < 3000' /var/log/mysql/mysql-slow.log \
+            > {{.ISUCON_DIR}}/logs/slow/slow.log.$idx
+          sudo truncate /var/log/mysql/mysql-slow.log --size 0
 
   keygen:
     desc: github用のssh鍵を生成します
