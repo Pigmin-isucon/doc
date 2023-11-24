@@ -50,6 +50,7 @@ tasks:
     desc: 最新のaccess.logを表示します
     aliases:
       - ca
+    dir: '{{.ISUCON_DIR}}/logs/alp'
     cmds:
       - ls -t {{.ISUCON_DIR}}/logs/alp | head -n 1 | xargs cat
     
@@ -57,6 +58,7 @@ tasks:
     desc: 最新のslow.logを表示します
     aliases:
       - cs
+    dir: '{{.ISUCON_DIR}}/logs/slow'
     cmds:
       - ls -t {{.ISUCON_DIR}}/logs/slow | head -n 1 | xargs cat
 
@@ -88,7 +90,7 @@ tasks:
             sudo cat /var/log/nginx/access.log | \
               alp ltsv \
               --sort sum -r > {{.ISUCON_DIR}}/logs/alp/access.log.$idx
-            sudo rm /var/log/nginx/access.log
+            sudo truncate /var/log/nginx/access.log --size 0
           fi
 
   mv-slow-logs:
@@ -103,7 +105,7 @@ tasks:
           if [ -e /var/log/mysql/mysql-slow.log ]; then
             sudo pt-query-digest --filter 'length($event->{arg}) < 3000' /var/log/mysql/mysql-slow.log \
               > {{.ISUCON_DIR}}/logs/slow/slow.log.$idx
-            sudo rm /var/log/mysql/mysql-slow.log
+            sudo truncate /var/log/mysql/mysql-slow.log --size 0
           fi
 
   keygen:
