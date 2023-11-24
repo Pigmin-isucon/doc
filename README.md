@@ -42,7 +42,7 @@ task keygen
 出力された公開鍵をコピーして github のリポジトリに置いておく
 
 ```
-cd {.gitを置くdir}
+cd ~
 git init
 git remote add origin {remote url}
 ```
@@ -64,6 +64,7 @@ task setup
 ### log の準備
 
 nginx で alp を使う準備  
+~/configにcpしてlocalで編集したほうがいい  
 /etc/nginx/nginx.conf にこれを書く  
 書いたら`sudo nginx -t`でエラーが出ないことを確認する
 
@@ -99,7 +100,7 @@ long_queyr_time = 0
 
 `task slow-on`でも一応できるが, restart するとリセットされる
 
-### go のアップデート(動作確認はしてない)
+### go のアップデート(~~動作確認はしてない~~動かない)
 
 go のバージョンが最新じゃないなら最新にする. `go.mod` でエラーが出るかもなので `go mod tidy`を忘れない
 
