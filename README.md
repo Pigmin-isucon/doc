@@ -89,6 +89,7 @@ nginx で alp を使う準備
 
 mysql で pt-query-digest を使う準備  
 /etc/mysql/mysql.conf.d/mysqld.cnf を書き換える(mariadb だと場所が違う)
+場所はhttps://www.banana-juice.com/tech/articles/mysql/my-cnf このやり方で調べる
 
 ```
 slow_query_log = 1
