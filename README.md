@@ -131,6 +131,7 @@ func main() {
   - pprof で具体的な個所を見つける
   - pprof で引っかからないなら fgprof を使う
 - unix domain socket を使うと速い
+  - https://pleiades.io/help/datagrip/how-to-connect-to-mysql-with-unix-sockets.html#step-1-locate-a-unix-socket-file
 - データ数が少ないならオンメモリキャッシュを考える
 - 異常なほど遅いなら別サーバーで処理する
 - 画像は DB に保存しない
