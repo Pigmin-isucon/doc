@@ -65,6 +65,7 @@ task setup
 
 nginx で alp を使う準備  
 ~/configにcpしてlocalで編集したほうがいい  
+コピーしたやつを手元で書き直して、それをサーバーにアップしたらこれを元のディレクトリにコピーし直して編集を反映させる
 /etc/nginx/nginx.conf にこれを書く  
 書いたら`sudo nginx -t`でエラーが出ないことを確認する
 
