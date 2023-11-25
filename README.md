@@ -140,3 +140,25 @@ func main() {
 - 画像は DB に保存しない
   - nginx の try_files を使う
 - initialize でできることを考える
+
+### 初期実装のデータベースについて
+
+参考実装では2つのデータベースがあります。
+
+- isupipe アプリケーションが利用するデータベース
+- isudns PowerDNSのゾーン情報を格納するデータベース
+
+### isupipe データベースのスキーマについて
+
+isupipe データベースのスキーマは初期実装に含まれています
+
+- webapp/sql/initdb.d/00_create_database.sql データベースおよびユーザの作成
+- webapp/sql/initdb.d/10_schema.sql isupipe データベースのスキーマ
+
+isupipe データベースを初期化するにはデータベースを `DROP DATABASE isupipe` および `CREATE DATABASE isupipe` で再作成し、
+
+```sh
+$ cat webapp/sql/initdb.d/10_schema.sql | sudo mysql isupipe
+```
+
+としたのち、データの初期化を行なってください。
